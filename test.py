@@ -34,7 +34,7 @@ df['introduction'] = df['introduction'].apply(lambda x: preprocess(x))
 
 
 # FastText
-pretrained_path = 'model/wiki.en.bin'
+pretrained_path = '../../Desktop/model/wiki.en.bin' # 'model/wiki.en.bin'
 model = fasttext.load_model(pretrained_path)
 
 
