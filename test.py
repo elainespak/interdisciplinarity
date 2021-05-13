@@ -47,7 +47,7 @@ for i, row in category_df.iterrows():
         text_list = category_df.loc[i]['introduction']
         _, avg = average_similarity(text_list, model)
         avg_list.append(avg)
-print(np.mean(avg_list))
+
 category_df['fasttext_similarity'] = avg_list
 
 

@@ -4,6 +4,10 @@
 
 Word embeddings:
 * [fastText](https://fasttext.cc/docs/en/support.html)
+ - Average cosine similarity among *all* majors: 0.7577378195089631
+ - Average cosine similarity of within-category1 majors: 0.7916725844257164
+ - Average cosine similarity of within-category2 majors: 0.8343145892080468
+ - Average cosine similarity of within-category3 majors: 0.8510020202228563
 * word2vec
 * BERT
 
