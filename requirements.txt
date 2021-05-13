@@ -1,0 +1,7 @@
+pandas
+ipython
+nbconvert
+tqdm
+fastText
+nltk
+scipy
