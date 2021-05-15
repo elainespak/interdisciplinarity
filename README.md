@@ -2,6 +2,9 @@
 
 ## 1. Compare university major's descriptions with the word embedding approach
 
+Data:
+* [CollegeBoard major and career](https://bigfuture.collegeboard.org/majors-careers) (scraped on May 7th)
+
 Word embeddings:
 * [fastText](https://fasttext.cc/docs/en/support.html)
   - Average cosine similarity among **all** majors: 0.7577378195089631
