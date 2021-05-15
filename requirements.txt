@@ -5,3 +5,5 @@ tqdm
 fastText
 nltk
 scipy
+beautifulsoup4
+selenium
