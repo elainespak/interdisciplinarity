@@ -9,7 +9,7 @@ from scipy.spatial.distance import cosine
 from preprocess import *
 
 
-def similarity(a, b, model):
+def fasttext_similarity(a, b, model):
         a_emb = model.get_sentence_vector(a)
         b_emb = model.get_sentence_vector(b)
         cosine_distance = 1 - cosine(a_emb, b_emb)
@@ -18,7 +18,7 @@ def similarity(a, b, model):
 
 def average_similarity(text_list, model):
         text_pairs = combinations(text_list, 2)
-        sims = [similarity(x, y, model) for x, y in tqdm(text_pairs)]
+        sims = [fasttext_similarity(x, y, model) for x, y in tqdm(text_pairs)]
         average = np.sum(sims) / len(sims)
         return sims, average
 
