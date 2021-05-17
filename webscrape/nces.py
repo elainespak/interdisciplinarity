@@ -1,6 +1,7 @@
 
 import re
 import time
+import requests
 import pandas as pd
 from tqdm import tqdm
 from random import randint
@@ -8,6 +9,13 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 
+headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Max-Age': '3600',
+    'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'
+    }
 
 def category2(s, all_list):
     for name, link in all_list:
@@ -68,8 +76,9 @@ d = {'definition': [],
      }
 
 # TODO: Fix the following error: requests.exceptions.SSLError: HTTPSConnectionPool(host='chromedriver.storage.googleapis.com', port=443): Max retries exceeded with url: /LATEST_RELEASE_90.0.4430 (Caused by SSLError(SSLEOFError(8, 'EOF occurred in violation of protocol (_ssl.c:1123)')))
-for i in tqdm(range(len(df))):
+for i in tqdm(range(678, len(df))): # TODO: remove 678
     url = df['url'][i]
+    """
     n = randint(1, 10) / randint(2, 4)
 
     driver = webdriver.Chrome(ChromeDriverManager().install())
@@ -77,9 +86,11 @@ for i in tqdm(range(len(df))):
     time.sleep(n)
     htmlSource = driver.page_source
     driver.quit()
-
-    # HTML parse
+    
     soup = BeautifulSoup(htmlSource, 'html.parser')
+    """
+    req = requests.get(url, headers, verify=False)
+    soup = BeautifulSoup(req.content, 'html.parser')
 
     # Definition
     cipdetail = soup.find('div', {'class': 'cipdetail'})
@@ -131,11 +142,15 @@ for i in tqdm(range(len(df))):
     d['title_2010'].append(titles[0])
 
 all_df = pd.DataFrame(data=d)
-all_df.to_csv('./data/nces_majors_all_678.csv', index=False)
+all_df.to_csv('./data/nces_majors_all_rest.csv', index=False)
 
 
 
 ### Example
+url = 'https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cipid=90509'
+req = requests.get(url, headers, verify=False)
+soup = BeautifulSoup(req.content, 'html.parser')
+
 url = 'https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cipid=90509'#'https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cipid=91089'
 n = randint(1, 10) / randint(2, 4)
 
