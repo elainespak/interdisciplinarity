@@ -89,7 +89,7 @@ for i in tqdm(range(678, len(df))): # TODO: remove 678
     
     soup = BeautifulSoup(htmlSource, 'html.parser')
     """
-    req = requests.get(url, headers, verify=False)
+    req = requests.get(url, headers)
     soup = BeautifulSoup(req.content, 'html.parser')
 
     # Definition
