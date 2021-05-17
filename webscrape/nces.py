@@ -56,16 +56,18 @@ key_df.to_csv('./data/nces_majors_key.csv', index=False)
 
 df = pd.read_csv('./data/nces_majors.csv')
 
-definition_list = []
-seealso_list = []
-change_list = []
-textchange_list = []
-examples_list = []
-code2020_list = []
-title2020_list = []
-code2010_list = []
-title2010_list = []
+d = {'definition': [],
+     'see_also': [],
+     'change': [],
+     'text_change': [],
+     'examples': [],
+     'code_2020': [],
+     'title_2020': [],
+     'code_2010': [],
+     'title_2010': []
+     }
 
+# TODO: Fix the following error: requests.exceptions.SSLError: HTTPSConnectionPool(host='chromedriver.storage.googleapis.com', port=443): Max retries exceeded with url: /LATEST_RELEASE_90.0.4430 (Caused by SSLError(SSLEOFError(8, 'EOF occurred in violation of protocol (_ssl.c:1123)')))
 for i in tqdm(range(len(df))):
     url = df['url'][i]
     n = randint(1, 10) / randint(2, 4)
@@ -117,16 +119,20 @@ for i in tqdm(range(len(df))):
     codes = [code.text.strip() for code in table.find_all('td', {'class': 'code'})]
     titles = [title.text.strip() for title in table.find_all('td', {'class': 'titledesc'})]
 
-    # All
-    definition_list.append(definition)
-    seealso_list.append(seealso)
-    change_list.append(change)
-    textchange_list.append(textchange)
-    examples_list.append(examples)
-    code2020_list.append(codes[1])
-    title2020_list.append(titles[1])
-    code2010_list.append(codes[0])
-    title2010_list.append(titles[0])
+    # Append
+    d['definition'].append(definition)
+    d['see_also'].append(seealso)
+    d['change'].append(change)
+    d['text_change'].append(textchange)
+    d['examples'].append(examples)
+    d['code_2020'].append(codes[1])
+    d['title_2020'].append(titles[1])
+    d['code_2010'].append(codes[0])
+    d['title_2010'].append(titles[0])
+
+all_df = pd.DataFrame(data=d)
+all_df.to_csv('./data/nces_majors_all_678.csv', index=False)
+
 
 
 ### Example
