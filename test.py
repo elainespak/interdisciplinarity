@@ -27,10 +27,49 @@ def flatten_list(t):
     return [item for sublist in t for item in sublist]
 
 
+### CollegeBoard & fastText
 # Bring data
 df = pd.read_csv('data/collegeboard_majors_all.csv')
 df = df.dropna(subset=['introduction'])
 df['introduction'] = df['introduction'].apply(lambda x: preprocess(x))
+
+
+# FastText
+pretrained_path = '../../Desktop/model/wiki.en.bin' # 'model/wiki.en.bin'
+model = fasttext.load_model(pretrained_path)
+
+
+# Compare cosine similarities of categories
+category_level = 'category1'
+category_df = df.groupby(category_level)['introduction'].apply(lambda x: list(x)).reset_index()
+
+avg_list = []
+for i, row in category_df.iterrows():
+        text_list = category_df.loc[i]['introduction']
+        _, avg = average_similarity(text_list, model)
+        avg_list.append(avg)
+
+category_df['fasttext_similarity'] = avg_list
+
+
+# Get cosine similarities of all categories
+text_list = flatten_list( list(category_df['introduction']) )
+_, avg_all = average_similarity(text_list, model)
+
+
+print('Within categories:')
+print(np.mean(avg_list))
+print('\nAverage:')
+print(avg_all)
+
+
+### NCES & fastText
+# Bring data
+all_df = pd.read_csv('data/nces_majors_all.csv')
+all_df['definition'] = all_df['definition'].apply(lambda x: preprocess(x))
+
+df = pd.read_csv('data/nces_majors_key.csv')
+
 
 
 # FastText
