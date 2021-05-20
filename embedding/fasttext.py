@@ -68,9 +68,10 @@ print(avg_all)
 all_df = pd.read_csv('data/nces_majors_all.csv')
 all_df['definition'] = all_df['definition'].apply(lambda x: preprocess(x))
 
-df = pd.read_csv('data/nces_majors_key.csv')
+key_df = pd.read_csv('data/nces_majors_key.csv')
 
-
+df = key_df.merge(all_df[['category', 'definition']], left_on='category3', right_on='category')
+df = df.drop(columns='category')
 
 # FastText
 pretrained_path = '../../Desktop/model/wiki.en.bin' # 'model/wiki.en.bin'
@@ -79,11 +80,11 @@ model = fasttext.load_model(pretrained_path)
 
 # Compare cosine similarities of categories
 category_level = 'category1'
-category_df = df.groupby(category_level)['introduction'].apply(lambda x: list(x)).reset_index()
+category_df = df.groupby(category_level)['definition'].apply(lambda x: list(x)).reset_index()
 
 avg_list = []
 for i, row in category_df.iterrows():
-        text_list = category_df.loc[i]['introduction']
+        text_list = category_df.loc[i]['definition']
         _, avg = average_similarity(text_list, model)
         avg_list.append(avg)
 
