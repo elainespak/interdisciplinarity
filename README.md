@@ -18,6 +18,11 @@ CollegeBoard + fastText:
 * Average cosine similarity of **within-category2** majors: 0.8343145892080468
 * Average cosine similarity of **within-category3** majors: 0.8510020202228563
 
+NCES + fastText:
+* Average cosine similarity among **all** majors: 0.7378977994407522
+* Average cosine similarity of **within-category1** majors: 0.8306243430865715
+* Average cosine similarity of **within-category2** majors: 0.8539201886173065
+
 ## 2. Use traditional frameworks
 * Biglan model
 * The College Majors Finder (Rosen, Holmberg, & Holland, 1989)
