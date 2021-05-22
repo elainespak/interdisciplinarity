@@ -3,8 +3,8 @@
 ## 1. Compare university major's descriptions with the word embedding approach
 
 Data:
-* [National Center for Education Statistics (NCES) Classification of Instructional Programs (CIP) Codes](https://nces.ed.gov/ipeds/cipcode/browse.aspx?y=56)
-* [CollegeBoard major and career](https://bigfuture.collegeboard.org/majors-careers) (scraped on May 7th)
+* [National Center for Education Statistics (NCES) Classification of Instructional Programs (CIP) Codes](https://nces.ed.gov/ipeds/cipcode/browse.aspx?y=56) (scraped on May 18th, 2021)
+* [CollegeBoard major and career](https://bigfuture.collegeboard.org/majors-careers) (scraped on May 7th, 2021)
 
 Word embeddings:
 * [fastText](https://fasttext.cc/docs/en/support.html)
