@@ -26,3 +26,4 @@ NCES + fastText:
 ## 2. Use traditional frameworks
 * Biglan model
 * The College Majors Finder (Rosen, Holmberg, & Holland, 1989)
+* STEM vs. non-STEM distinction by DHS & NCES. [Link to the list](https://www.ice.gov/sites/default/files/documents/stem-list.pdf)
