@@ -5,7 +5,7 @@ from tqdm import tqdm
 from itertools import combinations
 from sklearn.metrics.pairwise import cosine_similarity
 
-from embedding import Word2VecEmbedding, fastTextEmbedding
+from embeddings import Word2VecEmbedding, fastTextEmbedding
 from preprocess import *
 
 
