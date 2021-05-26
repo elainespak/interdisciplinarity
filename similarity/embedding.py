@@ -2,6 +2,7 @@
 import fasttext
 import numpy as np
 from gensim.models import KeyedVectors
+from sentence_transformers import SentenceTransformer
 
 
 class Word2VecEmbedding():
@@ -38,4 +39,20 @@ class fastTextEmbedding():
         return model
 
     def get_sentence_vector(self, preprocessed_sentence):
-        return self.model.get_sentence_vector(preprocessed_sentence)
+        sentence_vector = self.model.get_sentence_vector(preprocessed_sentence)
+        return sentence_vector
+
+
+class SentenceBERTEmbedding():
+
+    def __init__(self, model_path):
+        self.model = self.load_model(model_path)
+
+    def load_model(self, model_path):
+        model = SentenceTransformer(model_path)
+        print(f" Pretrained SentenceBERT model loaded")
+        return model
+
+    def get_sentence_vector(self, preprocessed_sentence):
+        sentence_vector = self.model.encode(list(preprocessed_sentence))[0]
+        return sentence_vector

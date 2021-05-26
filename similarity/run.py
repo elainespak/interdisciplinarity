@@ -1,9 +1,9 @@
 
 import pandas as pd
 
-from similarity.embedding import Word2VecEmbedding, fastTextEmbedding
-from similarity.soft_cosine_similarity import *
 from preprocess import *
+from similarity.soft_cosine_similarity import *
+from similarity.embedding import Word2VecEmbedding, fastTextEmbedding, SentenceBERTEmbedding
 
 
 ### Define parameters
@@ -33,15 +33,17 @@ elif data == 'CollegeBoard':
 
 
 ### Call embedding
-from similarity.embedding import Word2VecEmbedding, fastTextEmbedding
-
-if embedding_type == 'fastText':
+if embedding_type == 'fasttext':
     model_path = '../../Desktop/model/wiki.en.bin'
     embedding = fastTextEmbedding(model_path)
 
 elif embedding_type == 'word2vec':
     model_path = '../../Desktop/model/GoogleGoogleNews-vectors-negative300.bin'
     embedding = Word2VecEmbedding(model_path)
+
+elif embedding_type == 'sentencebert':
+    model_path = '../../Desktop/model/bert-base-nli-mean-tokens'
+    embedding = SentenceBERTEmbedding(model_path)
 
 model = embedding.load_model()
 
@@ -52,7 +54,7 @@ for i, row in category_df.iterrows():
         _, avg = combinations_similarity(vecs_list)
         avg_list.append(avg)
 
-category_df['fasttext_similarity'] = avg_list
+category_df['similarity'] = avg_list
 
 
 # Get cosine similarities of all categories
@@ -60,7 +62,7 @@ text_list = flatten_list( list(category_df[section]) )
 vecs_list = [model.get_sentence_vector(text) for text in text_list]
 _, avg_all = combinations_similarity(vecs_list)
 
-
+print(f'{data} - {category_level} - {embedding_type}\n')
 print('Within categories:')
 avg_list = [avg for avg in avg_list if not np.isnan(avg)]
 print(np.mean(avg_list))
