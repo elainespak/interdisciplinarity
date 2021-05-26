@@ -16,7 +16,7 @@ def fasttext_similarity(a, b, model):
         return cosine_distance
 
 
-def average_similarity(text_list, model):
+def combinations_similarity(text_list, model):
         text_pairs = combinations(text_list, 2)
         sims = [fasttext_similarity(x, y, model) for x, y in tqdm(text_pairs)]
         average = np.sum(sims) / len(sims)
@@ -27,16 +27,16 @@ def flatten_list(t):
     return [item for sublist in t for item in sublist]
 
 
+# FastText
+pretrained_path = '../../Desktop/model/wiki.en.bin' # 'model/wiki.en.bin'
+model = fasttext.load_model(pretrained_path)
+
+
 ### CollegeBoard & fastText
 # Bring data
 df = pd.read_csv('data/collegeboard_majors_all.csv')
 df = df.dropna(subset=['introduction'])
 df['introduction'] = df['introduction'].apply(lambda x: preprocess(x))
-
-
-# FastText
-pretrained_path = '../../Desktop/model/wiki.en.bin' # 'model/wiki.en.bin'
-model = fasttext.load_model(pretrained_path)
 
 
 # Compare cosine similarities of categories
@@ -46,7 +46,7 @@ category_df = df.groupby(category_level)['introduction'].apply(lambda x: list(x)
 avg_list = []
 for i, row in category_df.iterrows():
         text_list = category_df.loc[i]['introduction']
-        _, avg = average_similarity(text_list, model)
+        _, avg = combinations_similarity(text_list, model)
         avg_list.append(avg)
 
 category_df['fasttext_similarity'] = avg_list
@@ -54,7 +54,7 @@ category_df['fasttext_similarity'] = avg_list
 
 # Get cosine similarities of all categories
 text_list = flatten_list( list(category_df['introduction']) )
-_, avg_all = average_similarity(text_list, model)
+_, avg_all = combinations_similarity(text_list, model)
 
 
 print('Within categories:')
@@ -74,10 +74,6 @@ df['definition'] = df['definition'].apply(lambda x: preprocess(x))
 df = df.drop(columns='category')
 df = df[(df['category1'] != '21) RESERVED.') & (df['category1'] != '55) RESERVED.')]
 
-# FastText
-pretrained_path = '../../Desktop/model/wiki.en.bin' # 'model/wiki.en.bin'
-model = fasttext.load_model(pretrained_path)
-
 
 # Compare cosine similarities of categories
 category_level = 'category1'
@@ -86,7 +82,7 @@ category_df = df.groupby(category_level)['definition'].apply(lambda x: list(x)).
 avg_list = []
 for i, row in category_df.iterrows():
         text_list = category_df.loc[i]['definition']
-        _, avg = average_similarity(text_list, model)
+        _, avg = combinations_similarity(text_list, model)
         avg_list.append(avg)
 
 category_df['fasttext_similarity'] = avg_list
@@ -94,7 +90,7 @@ category_df['fasttext_similarity'] = avg_list
 
 # Get cosine similarities of all categories
 text_list = flatten_list( list(category_df['definition']) )
-_, avg_all = average_similarity(text_list, model)
+_, avg_all = combinations_similarity(text_list, model)
 
 
 print('Within categories:')
