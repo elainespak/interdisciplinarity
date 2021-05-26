@@ -6,6 +6,9 @@ from gensim.models import KeyedVectors
 
 class Word2VecEmbedding():
 
+    def __init__(self, model_path):
+        self.model = self.load_model(model_path)
+
     def load_model(self, model_path):
         model = KeyedVectors.load_word2vec_format(model_path)
         print(f" Pretrained Word2Vec model loaded")
@@ -25,6 +28,9 @@ class Word2VecEmbedding():
 
 
 class fastTextEmbedding():
+
+    def __init__(self, model_path):
+        self.model = self.load_model(model_path)
 
     def load_model(self, model_path):
         model = fasttext.load_model(model_path)
