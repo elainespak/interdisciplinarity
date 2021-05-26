@@ -7,3 +7,5 @@ nltk
 scipy
 beautifulsoup4
 selenium
+gensim
+scikit-learn
