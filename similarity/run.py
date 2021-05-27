@@ -8,9 +8,9 @@ from similarity.encoder import Word2VecEncoder, fastTextEncoder, SentenceBERTEnc
 
 ### Define parameters
 data = 'NCES' # 'CollegeBoard'
-category_level = 'category2'
+category_level = 'category1'
 section = 'definition' # 'introduction'
-encoder_type = 'word2vec' # 'fastText'
+encoder_type = 'sentencebert' #'word2vec' # 'fastText'
 
 
 ### Load data
@@ -47,7 +47,9 @@ elif encoder_type == 'sentencebert':
 
 # Get soft cosine similarities among all categories
 text_list = flatten_list( list(category_df[section]) )
-vecs_list = [encoder.get_sentence_vector(text) for text in text_list]
+vecs_list = []
+for text in tqdm(text_list):
+    vecs_list.append( encoder.get_sentence_vector(text) )
 _, avg_all = combinations_similarity(vecs_list)
 
 # Get within-category soft cosine similarities
