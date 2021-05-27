@@ -45,6 +45,11 @@ elif encoder_type == 'sentencebert':
     model_path = '../../Desktop/model/bert-base-nli-mean-tokens'
     encoder = SentenceBERTEncoder(model_path)
 
+# Get soft cosine similarities among all categories
+text_list = flatten_list( list(category_df[section]) )
+vecs_list = [encoder.get_sentence_vector(text) for text in text_list]
+_, avg_all = combinations_similarity(vecs_list)
+
 # Get within-category soft cosine similarities
 avg_list = []
 for i, row in category_df.iterrows():
@@ -52,14 +57,7 @@ for i, row in category_df.iterrows():
         vecs_list = [encoder.get_sentence_vector(text) for text in text_list]
         _, avg = combinations_similarity(vecs_list)
         avg_list.append(avg)
-
 category_df['similarity'] = avg_list
-
-
-# Get soft cosine similarities among all categories
-text_list = flatten_list( list(category_df[section]) )
-vecs_list = [model.get_sentence_vector(text) for text in text_list]
-_, avg_all = combinations_similarity(vecs_list)
 
 print(f'{data} - {category_level} - {encoder_type}\n')
 print('Within categories:')
