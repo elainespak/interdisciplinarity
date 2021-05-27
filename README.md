@@ -7,9 +7,9 @@ Data:
 * [CollegeBoard major and career](https://bigfuture.collegeboard.org/majors-careers) (scraped on May 7th, 2021)
 
 Word embeddings:
-* [fastText](https://fasttext.cc/docs/en/support.html)
-* word2vec
-* BERT
+* [fastText](https://fasttext.cc/docs/en/support.html): [wiki.en.bin](https://fasttext.cc/docs/en/pretrained-vectors.html)
+* Word2Vec: [GoogleNews-vectors-negative300.bin.gz](https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit)
+* SentenceBERT
 
 ### Results
 CollegeBoard + fastText:
@@ -22,6 +22,11 @@ NCES + fastText:
 * Average cosine similarity among **all** majors: 0.7378977994407522
 * Average cosine similarity of **within-category1** majors: 0.8306243430865715
 * Average cosine similarity of **within-category2** majors: 0.8539201886173065
+
+NCES + Word2Vec:
+* Average cosine similarity among **all** majors: 0.5575582608561134
+* Average cosine similarity of **within-category1** majors: 0.7040585696085785
+* Average cosine similarity of **within-category2** majors: 0.7529457843808666
 
 ## 2. Use traditional frameworks
 * Biglan model

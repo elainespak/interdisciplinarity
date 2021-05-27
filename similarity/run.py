@@ -8,7 +8,7 @@ from similarity.encoder import Word2VecEncoder, fastTextEncoder, SentenceBERTEnc
 
 ### Define parameters
 data = 'NCES' # 'CollegeBoard'
-category_level = 'category1'
+category_level = 'category2'
 section = 'definition' # 'introduction'
 encoder_type = 'word2vec' # 'fastText'
 
@@ -42,7 +42,7 @@ elif encoder_type == 'word2vec':
     encoder = Word2VecEncoder(model_path)
 
 elif encoder_type == 'sentencebert':
-    model_path = '../../Desktop/model/bert-base-nli-mean-tokens'
+    model_path = 'bert-base-nli-mean-tokens'#'../../Desktop/model/bert-base-nli-mean-tokens'
     encoder = SentenceBERTEncoder(model_path)
 
 # Get soft cosine similarities among all categories
