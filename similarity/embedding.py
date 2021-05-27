@@ -11,8 +11,8 @@ class Word2VecEmbedding():
         self.model = self.load_model(model_path)
 
     def load_model(self, model_path):
-        model = KeyedVectors.load_word2vec_format(model_path)
-        print(f" Pretrained Word2Vec model loaded")
+        print(" Pretrained Word2Vec model loading ... ")
+        model = KeyedVectors.load_word2vec_format(model_path, binary=True)
         return model
 
     def get_word_vector(self, word):
@@ -34,8 +34,8 @@ class fastTextEmbedding():
         self.model = self.load_model(model_path)
 
     def load_model(self, model_path):
+        print(" Pretrained fastText model loading ... ")
         model = fasttext.load_model(model_path)
-        print(f" Pretrained fastText model loaded")
         return model
 
     def get_sentence_vector(self, preprocessed_sentence):
@@ -49,8 +49,8 @@ class SentenceBERTEmbedding():
         self.model = self.load_model(model_path)
 
     def load_model(self, model_path):
+        print(" Pretrained SentenceBERT model loading ... ")
         model = SentenceTransformer(model_path)
-        print(f" Pretrained SentenceBERT model loaded")
         return model
 
     def get_sentence_vector(self, preprocessed_sentence):
