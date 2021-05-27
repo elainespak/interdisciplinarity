@@ -28,6 +28,11 @@ NCES + Word2Vec:
 * Average cosine similarity of **within-category1** majors: 0.7040585696085785
 * Average cosine similarity of **within-category2** majors: 0.7529457843808666
 
+NCES + SentenceBERT:
+* Average cosine similarity among **all** majors: 0.935573365010319
+* Average cosine similarity of **within-category1** majors: 0.953031548373558
+* Average cosine similarity of **within-category2** majors: ?
+
 ## 2. Use traditional frameworks
 * Biglan model
 * The College Majors Finder (Rosen, Holmberg, & Holland, 1989)
