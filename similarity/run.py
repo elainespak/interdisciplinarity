@@ -3,14 +3,14 @@ import pandas as pd
 
 from preprocess import *
 from similarity.soft_cosine_similarity import *
-from similarity.embedding import Word2VecEmbedding, fastTextEmbedding, SentenceBERTEmbedding
+from similarity.encoder import Word2VecEncoder, fastTextEncoder, SentenceBERTEncoder
 
 
 ### Define parameters
 data = 'NCES' # 'CollegeBoard'
 category_level = 'category1'
 section = 'definition' # 'introduction'
-embedding_type = 'word2vec' # 'fastText'
+encoder_type = 'word2vec' # 'fastText'
 
 
 ### Load data
@@ -33,23 +33,23 @@ elif data == 'CollegeBoard':
 
 
 ### Call embedding
-if embedding_type == 'fasttext':
+if encoder_type == 'fasttext':
     model_path = '../../Desktop/model/wiki.en.bin'
-    embedding = fastTextEmbedding(model_path)
+    encoder = fastTextEncoder(model_path)
 
-elif embedding_type == 'word2vec':
+elif encoder_type == 'word2vec':
     model_path = '../../Desktop/model/GoogleNews-vectors-negative300.bin'
-    embedding = Word2VecEmbedding(model_path)
+    encoder = Word2VecEncoder(model_path)
 
-elif embedding_type == 'sentencebert':
+elif encoder_type == 'sentencebert':
     model_path = '../../Desktop/model/bert-base-nli-mean-tokens'
-    embedding = SentenceBERTEmbedding(model_path)
+    encoder = SentenceBERTEncoder(model_path)
 
 # Get within-category soft cosine similarities
 avg_list = []
 for i, row in category_df.iterrows():
         text_list = category_df.loc[i][section]
-        vecs_list = [embedding.get_sentence_vector(text) for text in text_list]
+        vecs_list = [encoder.get_sentence_vector(text) for text in text_list]
         _, avg = combinations_similarity(vecs_list)
         avg_list.append(avg)
 
@@ -61,7 +61,7 @@ text_list = flatten_list( list(category_df[section]) )
 vecs_list = [model.get_sentence_vector(text) for text in text_list]
 _, avg_all = combinations_similarity(vecs_list)
 
-print(f'{data} - {category_level} - {embedding_type}\n')
+print(f'{data} - {category_level} - {encoder_type}\n')
 print('Within categories:')
 avg_list = [avg for avg in avg_list if not np.isnan(avg)]
 print(np.mean(avg_list))

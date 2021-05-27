@@ -5,7 +5,7 @@ from gensim.models import KeyedVectors
 from sentence_transformers import SentenceTransformer
 
 
-class Word2VecEmbedding():
+class Word2VecEncoder():
 
     def __init__(self, model_path):
         self.model = self.load_model(model_path)
@@ -28,7 +28,7 @@ class Word2VecEmbedding():
         return sentence_vector
 
 
-class fastTextEmbedding():
+class fastTextEncoder():
 
     def __init__(self, model_path):
         self.model = self.load_model(model_path)
@@ -43,7 +43,7 @@ class fastTextEmbedding():
         return sentence_vector
 
 
-class SentenceBERTEmbedding():
+class SentenceBERTEncoder():
 
     def __init__(self, model_path):
         self.model = self.load_model(model_path)
