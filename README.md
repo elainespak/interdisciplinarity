@@ -9,7 +9,7 @@ Data:
 Word embeddings:
 * [fastText](https://fasttext.cc/docs/en/support.html): [wiki.en.bin](https://fasttext.cc/docs/en/pretrained-vectors.html)
 * Word2Vec: [GoogleNews-vectors-negative300.bin.gz](https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit)
-* SentenceBERT
+* SentenceBERT: [bert-base-nli-mean-tokens](https://github.com/UKPLab/sentence-transformers)
 
 ### Results
 CollegeBoard + fastText:
