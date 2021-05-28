@@ -67,3 +67,45 @@ avg_list = [avg for avg in avg_list if not np.isnan(avg)]
 print(np.mean(avg_list))
 print('\nAverage:')
 print(avg_all)
+
+
+### STEM
+all_df = pd.read_csv('data/nces_majors_all.csv')
+
+def replace(x):
+    try:
+        if not pd.isnull(x):
+            x = re.sub('\s+', ' ', x)
+    except:
+        print(f'{x} caused problems')
+    return x
+
+all_df['category'] = all_df['category'].apply(lambda x: replace(x))
+
+
+import re
+stem = pd.read_csv('data/nces_majors_stem.csv')
+
+def reformat(c):
+    c = c[3:]
+    if 'Moved from' in c:
+        c = re.match('.*?(?= Moved from )', c).group(0)
+    if '. New' in c:
+        c = re.match('.*?(?=. New)', c).group(0) + '.'
+    if not c.endswith('.'):
+        c += '.'
+    new_c = c[:7] + ')' + c[7:]
+
+    return new_c
+
+stem['category'] = stem['category'].apply(lambda x: reformat(x))
+stem['stem'] = 'y'
+
+test = all_df.merge(stem, on='category', how='left')
+
+test2 = all_df.merge(stem, on='category', how='right')
+test2 = test2[pd.isnull(test2['definition'])]
+
+len(stem) == len(test[test['stem']=='y']) + len(test2)
+
+test.to_csv('data/nces_majors_all_stem.csv')
