@@ -15,7 +15,7 @@ encoder_type = 'sentencebert' #'word2vec' # 'fastText'
 
 ### Load data
 if data == 'NCES':
-    all_df = pd.read_csv('data/nces_majors_all.csv')
+    all_df = pd.read_csv('data/nces_majors_all_stem.csv')
     key_df = pd.read_csv('data/nces_majors_key.csv')
     df = key_df.merge(all_df[['category', section]], left_on='category3', right_on='category')
     df[section] = df[section].apply(lambda x: preprocess(x))
