@@ -1,4 +1,3 @@
-import re
 
 import nltk
 from nltk.stem import WordNetLemmatizer
@@ -59,7 +58,7 @@ def replace(x):
 
 all_df = pd.read_csv('data/nces_majors_all.csv')
 all_df['category'] = all_df['category'].apply(lambda x: replace(x))
-all_df.to_csv('data/nces_majors_all.csv')
+all_df.to_csv('data/nces_majors_all.csv', index=False)
 
 
 stem = pd.read_csv('data/nces_majors_stem.csv')
@@ -86,4 +85,4 @@ test = test[pd.isnull(test['definition'])]
 len(stem) == len(all_stem_df[all_stem_df['stem']=='y']) + len(test)
 
 all_stem_df['stem'] = all_stem_df['stem'].apply(lambda x: 'n' if pd.isnull(x) else 'y')
-all_stem_df.to_csv('data/nces_majors_all_stem.csv')
+all_stem_df.to_csv('data/nces_majors_all_stem.csv', index=False)
