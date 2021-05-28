@@ -2,9 +2,12 @@
 
 ## 1. Compare university major's descriptions with the word embedding approach
 
-Data:
+Major Data:
 * [National Center for Education Statistics (NCES) Classification of Instructional Programs (CIP) Codes](https://nces.ed.gov/ipeds/cipcode/browse.aspx?y=56) (scraped on May 18th, 2021)
 * [CollegeBoard major and career](https://bigfuture.collegeboard.org/majors-careers) (scraped on May 7th, 2021)
+
+CEO Sample Data:
+* [Chief executive officers of notable companies](https://en.wikipedia.org/wiki/List_of_chief_executive_officers)
 
 Word embeddings:
 * [fastText](https://fasttext.cc/docs/en/support.html): [wiki.en.bin](https://fasttext.cc/docs/en/pretrained-vectors.html)
